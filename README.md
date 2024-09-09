@@ -1,7 +1,7 @@
 # Single-Built Vue.js
 
 <p align="center">
-   <img src="./assets/logo/logomarca.svg">
+   <img src="./assets/logo/logoTipo.png">
 </p>
 
 > **sbVue**: Um framework para construção de formulários para aplicativos locais utilizando WEB com Vue.js via CDN. Seu propósito é acadêmico, servindo de treinamento acadêmico em HTML, CSS, JS e Vue CDN
