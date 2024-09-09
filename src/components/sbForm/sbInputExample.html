@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste de Configurações do sbInput</title>
+
+  <!-- Inclusão do Vue via CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <!-- Estilos básicos para o layout de teste -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .form-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    h2 {
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <!-- Título principal -->
+    <h1>Teste de Várias Configurações do sbInput</h1>
+
+    <!-- Teste de inputs de texto com diferentes props -->
+    <div class="form-section">
+      <h2>Text Inputs com Configurações Variadas</h2>
+      
+      <!-- Input de texto com log ativado -->
+      <sb-input 
+        label="Nome Completo" 
+        v-model="formData.nome" 
+        placeholder="Digite seu nome"
+        label-position="top" 
+        :width-percent="100" 
+        margin="15px"
+        border-radius="8px"
+        log
+      ></sb-input>
+
+      <!-- Input de email -->
+      <sb-input 
+        label="E-mail" 
+        v-model="formData.email" 
+        placeholder="Digite seu e-mail"
+        input-type="email" 
+        label-position="left"
+        :width-percent="70" 
+        margin="10px"
+        border-radius="6px"
+        log
+      ></sb-input>
+
+      <!-- Input de número -->
+      <sb-input 
+        label="Idade" 
+        v-model="formData.idade" 
+        placeholder="Digite sua idade" 
+        input-type="number" 
+        label-position="right"
+        :width-percent="50" 
+        margin="20px"
+        log
+      ></sb-input>
+    </div>
+
+    <!-- Teste de checkbox e radio buttons -->
+    <div class="form-section">
+      <h2>Checkbox e Radio Inputs</h2>
+      
+      <!-- Checkbox com log -->
+      <sb-input 
+        v-model="formData.receberNewsletter" 
+        input-type="checkbox" 
+        label="Receber Newsletter" 
+        label-position="left"
+        margin="5px"
+        log
+      ></sb-input>
+
+      <!-- Radio buttons para seleção de gênero -->
+      <sb-input 
+        v-model="formData.genero" 
+        input-type="radio" 
+        group-name="genero"  
+        label="Masculino" 
+        label-position="right"
+        margin="10px"
+        log
+      ></sb-input>
+
+      <sb-input 
+        v-model="formData.genero" 
+        input-type="radio" 
+        group-name="genero"  
+        label="Feminino" 
+        label-position="right"
+        margin="10px"
+        log
+      ></sb-input>
+    </div>
+
+    <!-- Teste de dropdown (select) -->
+    <div class="form-section">
+      <h2>Select Input (Dropdown)</h2>
+      
+      <!-- Select com opções de países -->
+      <sb-input 
+        label="Escolha um país" 
+        v-model="formData.pais" 
+        input-type="select" 
+        label-position="top" 
+        :width-percent="60"
+        log
+      >
+        <option value="br">Brasil</option>
+        <option value="us">Estados Unidos</option>
+        <option value="ca">Canadá</option>
+        <option value="uk">Reino Unido</option>
+      </sb-input>
+    </div>
+
+    <!-- Teste de textarea -->
+    <div class="form-section">
+      <h2>Textarea Input</h2>
+      
+      <!-- Textarea com logs -->
+      <sb-input 
+        label="Descrição" 
+        v-model="formData.descricao" 
+        input-type="textarea" 
+        placeholder="Digite sua descrição"
+        label-position="top" 
+        :width-percent="100" 
+        border-radius="4px" 
+        margin="15px"
+        log
+      ></sb-input>
+    </div>
+
+    <!-- Teste específico para logs -->
+    <div class="form-section">
+      <h2>Logs de Ação</h2>
+      
+      <!-- Input que gera logs no console -->
+      <sb-input 
+        label="Teste de Logs" 
+        v-model="formData.testeLog" 
+        placeholder="Digite algo para gerar logs"
+        label-position="top" 
+        :width-percent="100" 
+        border-radius="5px"
+        log
+      ></sb-input>
+    </div>
+    
+  </div>
+
+  <!-- Script para criar a aplicação Vue -->
+  <script type="module">
+    import { sbInput } from './sbInput.js';  // Importando o componente sbInput.js
+
+    const app = Vue.createApp({
+      components: {
+        'sb-input': sbInput
+      },
+      data() {
+        return {
+          formData: {
+            nome: '',
+            email: '',
+            idade: '',
+            receberNewsletter: false,
+            genero: '',
+            pais: '',
+            descricao: '',
+            testeLog: ''
+          }
+        };
+      }
+    });
+
+    app.mount('#app');
+  </script>
+
+</body>
+</html>

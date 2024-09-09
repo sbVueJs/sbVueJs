@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste de Botão sbButton</title>
+
+  <!-- Importando Vue via CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .form-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    h2 {
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <h1>Teste de Botões com sbButton</h1>
+
+    <!-- Seção 1: Botões com diferentes tipos -->
+    <div class="form-section">
+      <h2>Botões Padrão</h2>
+      
+      <!-- Botão Simples -->
+      <sb-button 
+        label="Clique Aqui" 
+        :width-percent="50" 
+        background-color="#007bff"
+        border-radius="8px"
+        padding="10px"
+        log
+        debug
+        @click="showAlert"
+      ></sb-button>
+
+      <!-- Botão de Reset -->
+      <sb-button 
+        label="Resetar" 
+        button-type="reset"
+        :width-percent="50" 
+        background-color="#6c757d"
+        border-radius="8px"
+        padding="10px"
+        log
+        debug
+      ></sb-button>
+
+    </div>
+
+    <!-- Seção 2: Botão de Submit com alvo -->
+    <div class="form-section">
+      <h2>Botão de Submit com FormTarget</h2>
+
+      <!-- Formulário de Teste -->
+      <form id="testForm">
+        <label for="inputTeste">Teste de Campo:</label>
+        <input id="inputTeste" type="text" name="teste" placeholder="Digite algo" />
+      </form>
+
+      <!-- Botão de Submit -->
+      <sb-button 
+        label="Submeter Formulário" 
+        button-type="submit" 
+        form-target="testForm"
+        :width-percent="50" 
+        background-color="#28a745"
+        border-radius="8px"
+        padding="10px"
+        log
+        debug
+      ></sb-button>
+    </div>
+    
+  </div>
+
+  <!-- Vue Application Setup -->
+  <script type="module">
+    import { sbButton } from './sbButton.js';  // Importando o componente sbButton.js
+
+    const app = Vue.createApp({
+      components: {
+        'sb-button': sbButton
+      },
+      methods: {
+        showAlert() {
+          alert('Botão foi clicado!');
+        }
+      }
+    });
+
+    app.mount('#app');
+  </script>
+
+</body>
+</html>

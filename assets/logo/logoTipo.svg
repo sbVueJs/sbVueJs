@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 75 75"
+   width="150"
+   height="150"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="logoTipo.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="namedview4"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.885"
+     inkscape:cx="100.1287"
+     inkscape:cy="100"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="2391"
+     inkscape:window-y="1341"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <!-- Base do "V" em verde claro -->
+  <!-- Parte interna do "V" em azul claro -->
+  <!-- Ícone de formulário no centro -->
+  <g
+     id="g6"
+     transform="matrix(1.7657658,0,0,1.794808,-3.0648883,-3.836022)">
+    <polygon
+       points="30,55 50,15 70,55 "
+       fill="#42b883"
+       id="polygon1"
+       transform="rotate(180,36.486486,29.015444)" />
+    <polygon
+       points="37,55 50,25 63,55 "
+       fill="#35495e"
+       id="polygon2"
+       transform="rotate(180,36.486486,34.015444)" />
+    <rect
+       x="15.527672"
+       y="4.8841691"
+       width="15.148005"
+       height="19.359198"
+       fill="#ffffff"
+       id="rect2"
+       style="stroke-width:1.39822" />
+    <line
+       x1="18.557274"
+       y1="11.337234"
+       x2="27.646076"
+       y2="11.337234"
+       stroke="#42b883"
+       stroke-width="1.39822"
+       id="line2" />
+    <line
+       x1="18.557274"
+       y1="17.7903"
+       x2="27.646076"
+       y2="17.7903"
+       stroke="#42b883"
+       stroke-width="1.39822"
+       id="line3" />
+    <line
+       x1="18.557274"
+       y1="24.243366"
+       x2="27.646076"
+       y2="24.243366"
+       stroke="#42b883"
+       stroke-width="1.39822"
+       id="line4" />
+  </g>
+  <!-- Texto do projeto -->
+</svg>

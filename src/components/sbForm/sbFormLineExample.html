@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste de sbFormLine</title>
+
+  <!-- Importando Vue via CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .form-container {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <h1>Testes de sbFormLine com Distribuição e Alinhamento</h1>
+
+    <div class="form-container">
+      <h2>Linhas com Alinhamento e Distribuição Flexível</h2>
+
+      <!-- Linha 1: Alinhamento 'center', Distribuição 'space-between' -->
+      <sb-form-line 
+        :transparent="false"
+        align-items="center"
+        justify-content="space-between"
+        min-height="50px"
+        height-weight="3"
+        :total-weight="6"
+        background-color="#e0e0e0"
+        anchor-position="flex-start"
+        log
+        debug
+      >
+        <sb-input 
+          label="Nome Completo" 
+          v-model="formData.nome" 
+          placeholder="Digite seu nome"
+          :width-percent="60"
+          log
+        ></sb-input>
+        <sb-input 
+          label="Idade" 
+          v-model="formData.idade" 
+          placeholder="Digite sua idade" 
+          input-type="number" 
+          :width-percent="30"
+          log
+        ></sb-input>
+      </sb-form-line>
+
+      <!-- Linha 2: Alinhamento 'flex-end', Distribuição 'center' -->
+      <sb-form-line 
+        :transparent="false"
+        align-items="flex-end"
+        justify-content="center"
+        min-height="60px"
+        height-weight="3"
+        :total-weight="6"
+        background-color="#d0d0d0"
+        anchor-position="flex-end"
+        log
+        debug
+      >
+        <sb-input 
+          label="E-mail" 
+          v-model="formData.email" 
+          placeholder="Digite seu e-mail"
+          :width-percent="80"
+          log
+        ></sb-input>
+      </sb-form-line>
+    </div>
+
+  </div>
+
+  <!-- Vue Application Setup -->
+  <script type="module">
+    import { sbFormLine } from './sbFormLine.js';  // Importando o sbFormLine
+    import { sbInput } from './sbInput.js';        // Importando o sbInput
+
+    const app = Vue.createApp({
+      components: {
+        'sb-form-line': sbFormLine,
+        'sb-input': sbInput
+      },
+      data() {
+        return {
+          formData: {
+            nome: '',
+            idade: '',
+            email: ''
+          }
+        };
+      }
+    });
+
+    app.mount('#app');
+  </script>
+
+</body>
+</html>
