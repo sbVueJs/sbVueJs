@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo de Formulário com sbVue</title>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+</head>
+
+<body>
+
+  <div id="app">
+    <h1>Formulário com Armazenamento de Dados em Array</h1>
+
+    <sb-form-array-db v-model="currentItem">
+      <sb-form zebra-stripe>
+        <sb-form-line>
+          <sb-input label="Nome Completo" v-model="currentItem.nome" placeholder="Digite seu nome"
+            width-percent="70"></sb-input>
+          <sb-input label="Idade" v-model="currentItem.idade" input-type="number" placeholder="Digite sua idade"
+            width-percent="30"></sb-input>
+        </sb-form-line>
+        <sb-form-line>
+          <sb-input label="E-mail" v-model="currentItem.email" input-type="email"
+            placeholder="Digite seu e-mail"></sb-input>
+          <sb-input label="Telefone" v-model="currentItem.telefone" input-type="tel"
+            placeholder="(xx) xxxxx-xxxx"></sb-input>
+          <sb-input label="País" v-model="currentItem.pais" input-type="select">
+            <option value="br">Brasil</option>
+            <option value="us">Estados Unidos</option>
+            <option value="ca">Canadá</option>
+            <option value="uk">Reino Unido</option>
+          </sb-input>
+        </sb-form-line>
+        <sb-form-line justify-content="right">
+          <sb-button label="Salvar" button-type="submit" width-percent="15"></sb-button>
+        </sb-form-line>
+      </sb-form>
+    </sb-form-array-db>
+  </div>
+
+  <script type="module">
+    import { sbForm } from '/src/components/sbForm/sbForm.js';
+    import { sbFormLine } from '/src/components/sbForm/sbFormLine.js';
+    import { sbInput } from '/src/components/sbForm/sbInput.js';
+    import { sbButton } from '/src/components/sbForm/sbButton.js';
+    import { sbFormArrayDb } from '/src/utils/sbFormArrayDb/sbFormArrayDb.js';
+
+    const app = Vue.createApp({
+      components: {
+        'sb-form': sbForm,
+        'sb-form-line': sbFormLine,
+        'sb-input': sbInput,
+        'sb-button': sbButton,
+        'sb-form-array-db': sbFormArrayDb
+      },
+      data() {
+        return {
+          meuArray: [], // Array de dados gerenciado
+        };
+      }
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+
+</html>
