@@ -41,7 +41,7 @@
     <sb-form zebra-stripe zebra-color-even="#f9f9f9" zebra-color-odd="#e0e0e0">
       
       <!-- Usando sbFormArrayDb para gerenciar dados -->
-      <sb-form-array-db :arrayData="meuArray" :itemStructure="itemStructure" log>
+      <sb-form-array-db :arrayData="meuArray" :itemStructure="itemStructure" v-model="currentItem" log>
         <!-- Linha 1: Nome Completo e Idade -->
         <sb-form-line align-items="center" justify-content="space-between" min-height="50px">
           <sb-input label="Nome Completo" v-model="currentItem.nome" placeholder="Digite seu nome" width-percent="60" log></sb-input>
@@ -66,37 +66,37 @@
 
         <!-- Linha 4: Botão de Submissão -->
         <sb-form-line align-items="center" justify-content="center" min-height="50px">
-          <sb-button label="Salvar" button-type="submit" :width-percent="50" background-color="#28a745" @click="saveItem" log></sb-button>
+          <sb-button label="Salvar" button-type="submit" :width-percent="50" background-color="#28a745" log></sb-button>
         </sb-form-line>
       </sb-form-array-db>
-
-      <!-- Tabela para exibir o array de dados -->
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>E-mail</th>
-            <th>Telefone</th>
-            <th>País</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in meuArray" :key="item.id">
-            <td>{{ item.nome }}</td>
-            <td>{{ item.idade }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.telefone }}</td>
-            <td>{{ item.pais }}</td>
-            <td>
-              <button @click="editItem(index)">Editar</button>
-              <button @click="removeItem(index)">Excluir</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </sb-form>
+
+    <!-- Tabela para exibir o array de dados -->
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>E-mail</th>
+          <th>Telefone</th>
+          <th>País</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in meuArray" :key="item.id">
+          <td>{{ item.nome }}</td>
+          <td>{{ item.idade }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.telefone }}</td>
+          <td>{{ item.pais }}</td>
+          <td>
+            <button @click="editItem(index)">Editar</button>
+            <button @click="removeItem(index)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- Script Vue -->
@@ -134,39 +134,6 @@
           },
           currentIndex: null
         };
-      },
-      methods: {
-        // Salvar ou editar o item
-        saveItem() {
-          if (this.currentIndex === null) {
-            this.currentItem.id = this.meuArray.length + 1; // Gera ID único
-            this.meuArray.push({ ...this.currentItem });
-          } else {
-            this.meuArray[this.currentIndex] = { ...this.currentItem };
-          }
-          this.resetForm();
-        },
-        // Editar um item existente
-        editItem(index) {
-          this.currentItem = { ...this.meuArray[index] };
-          this.currentIndex = index;
-        },
-        // Remover um item
-        removeItem(index) {
-          this.meuArray.splice(index, 1);
-          this.resetForm();
-        },
-        // Resetar o formulário
-        resetForm() {
-          this.currentItem = {
-            nome: '',
-            idade: '',
-            email: '',
-            telefone: '',
-            pais: ''
-          };
-          this.currentIndex = null;
-        }
       }
     });
 

@@ -2,11 +2,16 @@ export const sbFormArrayDb = {
   props: {
     arrayData: {
       type: Array,
+      default: () => [], // Inicializa arrayData como um array vazio
       required: true, // O array de dados gerenciado
     },
     itemStructure: {
       type: Object,
       required: true, // Estrutura do item (os campos e valores padrões)
+    },
+    modelValue: {
+      type: Object,
+      required: true, // Recebe o currentItem do v-model
     },
     log: {
       type: Boolean,
@@ -15,13 +20,29 @@ export const sbFormArrayDb = {
   },
   data() {
     return {
-      currentItem: Object.assign({}, this.itemStructure), // Item atual para edição/adicionamento
       currentIndex: null, // Índice do item sendo editado
     };
+  },
+  computed: {
+    // Define o item atual, mantendo a reatividade
+    currentItem: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit('update:modelValue', value);
+      }
+    }
   },
   methods: {
     // Adiciona ou edita um item no array
     saveItem() {
+      // Verifica se arrayData é realmente um array antes de tentar manipulá-lo
+      if (!Array.isArray(this.arrayData)) {
+        this.logMessage('arrayData não é um array!', 'warn');
+        return;
+      }
+
       if (this.currentIndex === null) {
         // Adiciona novo item
         this.currentItem.id = this.arrayData.length + 1; // Gera ID único
