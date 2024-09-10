@@ -2,10 +2,15 @@ let sbCssDefs = {};
 
 try {
   sbCssDefs = require('./sbCssDefs.js');
-  console.log('%c sbCssDefs.js carregado com sucesso.', 'color: green;');
+  if (this && this.debug) {
+    console.debug('%c sbCssDefs.js carregado com sucesso.', 'color: green;');
+  }
 } catch (error) {
-  console.warn('%c sbCssDefs.js não encontrado. Usando valores padrão.', 'color: orange;');
+  if (this && this.debug) {
+    console.debug('%c sbCssDefs.js não encontrado. Usando valores padrão.', 'color: orange;');
+  }
 }
+
 
 export const sbButton = {
   props: {
@@ -22,12 +27,8 @@ export const sbButton = {
       type: String,
       required: false  // O alvo do formulário, usado quando o buttonType for 'submit'
     },
-    onClickAction: {
-      type: Function,
-      required: false  // Callback para ser chamado ao clicar no botão
-    },
     widthPercent: {
-      type: Number,
+      type: [String, Number],
       default: sbCssDefs.widthPercent || 100  // Percentual de largura do botão
     },
     borderRadius: {
@@ -47,18 +48,18 @@ export const sbButton = {
       default: sbCssDefs.padding || '10px'  // Espaçamento interno do botão
     },
     log: {
-      type: Boolean,
+      type: [Boolean, String, Number],
       default: false  // Logs de depuração
     },
     debug: {
-      type: Boolean,
+      type: [Boolean, String, Number],
       default: false  // Logs detalhados
     }
   },
   computed: {
     buttonStyle() {
       return {
-        width: this.widthPercent + '%',
+        width: this.addPxIfNeeded(this.widthPercent + '%'),
         borderRadius: this.borderRadius,
         backgroundColor: this.backgroundColor,
         color: this.foregroundColor,
@@ -79,9 +80,8 @@ export const sbButton = {
         } else {
           this.logMessage(`Formulário com id ${this.formTarget} não encontrado.`, 'warn');
         }
-      } else if (this.onClickAction) {
-        this.logMessage('Callback onClickAction sendo executado.', 'log');
-        this.onClickAction(event);  // Chama o callback associado ao botão
+      } else {
+        this.logMessage('Botão foi clicado.', 'log');
       }
     },
     logMessage(message, type = 'log') {
@@ -91,11 +91,18 @@ export const sbButton = {
         debug: 'color: purple;'
       };
 
-      if (this.debug) {
+      if (this.coerceBoolean(this.debug)) {
         console.debug(`%c${message}`, styles.debug);
-      } else if (this.log) {
+      } else if (this.coerceBoolean(this.log)) {
         console.log(`%c${message}`, styles.log);
       }
+    },
+    addPxIfNeeded(value) {
+      return typeof value === 'number' ? `${value}px` : value;
+    },
+    coerceBoolean(value) {
+      // Converte valores como "1", "0", "true", "false" para booleano
+      return value === true || value === 'true' || value === 1;
     }
   },
   mounted() {

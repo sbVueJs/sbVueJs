@@ -1,99 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teste de sbForm</title>
 
   <!-- Importando Vue via CDN -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue@3"></script>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .sb-title-bar {
-      background-color: #444;
-      color: white;
-      padding: 10px;
-      font-weight: bold;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-    }
-    .sb-form-container {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f4f4f4;
-      padding: 20px;
-    }
-  </style>
 </head>
 <body>
 
   <div id="app">
-    <h1>Testes de sbForm com Zebra Striping e Barra de Título</h1>
+    <h1>Teste de sbForm com Gerenciamento de Dados (Array)</h1>
 
-    <sb-form
-      zebra-stripe
-      zebra-color-even="#e5e5e5"
-      zebra-color-odd="#d0d0d0"
-      title-bar
-      title="Formulário de Exemplo"
-      minimizable
-      log
-    >
-      <!-- Linha 1 -->
-      <sb-form-line 
-        :transparent="false"
-        align-items="center"
-        justify-content="space-between"
-        min-height="50px"
-        :height-weight="1"
-        :total-weight="2"
-        background-color="#f9f9f9"
-        anchor-position="flex-start"
-        log
-      >
-        <sb-input 
-          label="Nome Completo" 
-          v-model="formData.nome" 
-          placeholder="Digite seu nome"
-          :width-percent="60"
-          log
-        ></sb-input>
-        <sb-input 
-          label="Idade" 
-          v-model="formData.idade" 
-          placeholder="Digite sua idade" 
-          input-type="number" 
-          :width-percent="30"
-          log
-        ></sb-input>
-      </sb-form-line>
-
-      <!-- Linha 2 -->
-      <sb-form-line 
-        :transparent="false"
-        align-items="center"
-        justify-content="center"
-        min-height="60px"
-        :height-weight="1"
-        :total-weight="2"
-        background-color="#f9f9f9"
-        anchor-position="flex-end"
-        log
-      >
-        <sb-input 
-          label="E-mail" 
-          v-model="formData.email" 
-          placeholder="Digite seu e-mail"
-          :width-percent="80"
-          log
-        ></sb-input>
-      </sb-form-line>
+    <sb-form db-array=true v-model="formData">
+        <sb-input label="Nome Completo" v-model="formData.nome"></sb-input>
+        <sb-input label="Idade" v-model="formData.idade"></sb-input>
     </sb-form>
-
   </div>
 
   <!-- Vue Application Setup -->
@@ -101,19 +25,20 @@
     import { sbForm } from './sbForm.js';      // Importando o sbForm
     import { sbFormLine } from './sbFormLine.js';  // Importando o sbFormLine
     import { sbInput } from './sbInput.js';        // Importando o sbInput
+    import { sbButton } from './sbButton.js';      // Importando o sbButton
 
     const app = Vue.createApp({
       components: {
         'sb-form': sbForm,
         'sb-form-line': sbFormLine,
-        'sb-input': sbInput
+        'sb-input': sbInput,
+        'sb-button': sbButton
       },
       data() {
         return {
           formData: {
             nome: '',
-            idade: '',
-            email: ''
+            idade: ''
           }
         };
       }

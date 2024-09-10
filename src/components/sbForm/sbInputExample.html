@@ -6,7 +6,7 @@
   <title>Teste de Configurações do sbInput</title>
 
   <!-- Inclusão do Vue via CDN -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue@3"></script>
 
   <!-- Estilos básicos para o layout de teste -->
   <style>
@@ -43,10 +43,9 @@
         v-model="formData.nome" 
         placeholder="Digite seu nome"
         label-position="top" 
-        :width-percent="100" 
+        width-percent="100" 
         margin="15px"
         border-radius="8px"
-        log
       ></sb-input>
 
       <!-- Input de email -->
@@ -56,10 +55,9 @@
         placeholder="Digite seu e-mail"
         input-type="email" 
         label-position="left"
-        :width-percent="70" 
+        width-percent="70" 
         margin="10px"
         border-radius="6px"
-        log
       ></sb-input>
 
       <!-- Input de número -->
@@ -69,9 +67,8 @@
         placeholder="Digite sua idade" 
         input-type="number" 
         label-position="right"
-        :width-percent="50" 
+        width-percent="50" 
         margin="20px"
-        log
       ></sb-input>
     </div>
 
@@ -86,7 +83,6 @@
         label="Receber Newsletter" 
         label-position="left"
         margin="5px"
-        log
       ></sb-input>
 
       <!-- Radio buttons para seleção de gênero -->
@@ -97,7 +93,6 @@
         label="Masculino" 
         label-position="right"
         margin="10px"
-        log
       ></sb-input>
 
       <sb-input 
@@ -107,7 +102,6 @@
         label="Feminino" 
         label-position="right"
         margin="10px"
-        log
       ></sb-input>
     </div>
 
@@ -121,8 +115,7 @@
         v-model="formData.pais" 
         input-type="select" 
         label-position="top" 
-        :width-percent="60"
-        log
+        width-percent="60"
       >
         <option value="br">Brasil</option>
         <option value="us">Estados Unidos</option>
@@ -142,10 +135,9 @@
         input-type="textarea" 
         placeholder="Digite sua descrição"
         label-position="top" 
-        :width-percent="100" 
+        width-percent="100" 
         border-radius="4px" 
         margin="15px"
-        log
       ></sb-input>
     </div>
 
@@ -159,9 +151,8 @@
         v-model="formData.testeLog" 
         placeholder="Digite algo para gerar logs"
         label-position="top" 
-        :width-percent="100" 
+        width-percent="100" 
         border-radius="5px"
-        log
       ></sb-input>
     </div>
     

@@ -2,81 +2,102 @@ let sbCssDefs = {};
 
 try {
   sbCssDefs = require('./sbCssDefs.js');
-  console.log('%c sbCssDefs.js carregado com sucesso.', 'color: green;');
+  if (this && this.debug) {
+    console.debug('%c sbCssDefs.js carregado com sucesso.', 'color: green;');
+  }
 } catch (error) {
-  console.warn('%c sbCssDefs.js não encontrado. Usando valores padrão.', 'color: orange;');
+  if (this && this.debug) {
+    console.debug('%c sbCssDefs.js não encontrado. Usando valores padrão.', 'color: orange;');
+  }
 }
 
 export const sbFormLine = {
   props: {
     transparent: {
-      type: Boolean,
-      default: false  // Define se a linha será transparente
+      type: [Boolean, String, Number],
+      default: false,
+      validator: value => [true, false, 'true', 'false', 0, 1].includes(value),
     },
-    alignItems: {
+    horizontalAnchor: {
       type: String,
-      default: sbCssDefs.alignItems || 'flex-start',  // Define o alinhamento vertical dos inputs na linha
-      validator: value => ['flex-start', 'flex-end', 'center', 'stretch'].includes(value)
+      default: 'left',
+      validator: value => ['left', 'center', 'right'].includes(value)
     },
-    justifyContent: {
+    verticalAnchor: {
       type: String,
-      default: sbCssDefs.justifyContent || 'flex-start',  // Define a distribuição horizontal dos inputs na linha
-      validator: value => ['flex-start', 'center', 'flex-end', 'space-between', 'space-around'].includes(value)
+      default: 'top',
+      validator: value => ['top', 'middle', 'bottom'].includes(value)
     },
-    minHeight: {
+    justify: {
       type: String,
-      default: sbCssDefs.minHeight || '40px'  // Altura mínima da linha
+      default: 'start',
+      validator: value => ['start', 'end', 'center', 'space-between', 'space-around'].includes(value)
     },
     heightWeight: {
-      type: Number,
-      default: sbCssDefs.heightWeight || 1  // Define o peso da linha para distribuição vertical
+      type: [String, Number],
+      default: '1' // Peso da altura, default para 1
     },
-    totalWeight: {
-      type: Number,
-      required: true  // Define a soma total dos pesos, que será usada para calcular a altura relativa
-    },
-    anchorPosition: {
-      type: String,
-      default: sbCssDefs.anchorPosition || 'flex-start',  // Define a posição da linha no layout vertical
-      validator: value => ['flex-start', 'flex-end', 'center', 'stretch'].includes(value)
+    minHeight: {
+      type: [String, Number],
+      default: '40' // Altura mínima da linha
     },
     backgroundColor: {
       type: String,
-      default: sbCssDefs.backgroundColor || '#f9f9f9'  // Cor de fundo da linha
+      default: '#f9f9f9'
     },
     padding: {
       type: String,
-      default: '5px'  // Padding padrão
+      default: '5px'
     },
     log: {
       type: Boolean,
-      default: false  // Logs de depuração
+      default: false
     },
     debug: {
       type: Boolean,
-      default: false  // Logs detalhados
+      default: false
     }
   },
   computed: {
     lineStyle() {
       return {
+        flexGrow: Number(this.heightWeight), // Flex grow baseado no peso individual
         display: 'flex',
-        alignItems: this.alignItems,  // Alinhamento vertical
-        justifyContent: this.justifyContent,  // Distribuição horizontal
-        minHeight: this.minHeight,
-        height: this.calculateHeight(),  // Altura calculada com base no peso
-        backgroundColor: this.transparent ? 'transparent' : this.backgroundColor,  // Transparente ou cor de fundo
-        order: this.anchorPosition,  // Âncora da linha no layout
-        padding: this.padding  // Adicionando o padding da prop
+        justifyContent: this.justifyContentValue,
+        alignItems: this.verticalAlignValue,
+        backgroundColor: this.isTransparent ? 'transparent' : this.backgroundColor,
+        padding: this.padding,
+        minHeight: this.addPxIfNeeded(this.minHeight), // Adicionar "px" ao minHeight se necessário
       };
+    },
+    justifyContentValue() {
+      // Mapeia a distribuição de justify para o CSS correto
+      const justifyMap = {
+        start: 'flex-start',
+        end: 'flex-end',
+        center: 'center',
+        'space-between': 'space-between',
+        'space-around': 'space-around'
+      };
+      return justifyMap[this.justify];
+    },
+    verticalAlignValue() {
+      // Define o alinhamento vertical com base no valor passado para verticalAnchor
+      const verticalMap = {
+        top: 'flex-start',
+        middle: 'center',
+        bottom: 'flex-end'
+      };
+      return verticalMap[this.verticalAnchor];
+    },
+    isTransparent() {
+      return ['true', true, 1].includes(this.transparent);
     }
   },
   methods: {
-    calculateHeight() {
-      const containerHeight = 400;  // Exemplo de altura do container, pode ser alterado para ser dinâmico
-      const calculatedHeight = (this.heightWeight / this.totalWeight) * containerHeight;
-      this.logMessage(`Altura calculada da linha: ${calculatedHeight}px`, 'log');
-      return `${calculatedHeight}px`;
+    addPxIfNeeded(value) {
+      // Se o valor é um número, adiciona "px", caso contrário, retorna o valor como está
+      return typeof value === 'number' ? `${value}px` : value;
     },
     logMessage(message, type = 'log') {
       const styles = {
@@ -93,19 +114,18 @@ export const sbFormLine = {
   },
   mounted() {
     this.logMessage(`Componente sbFormLine montado com props:
-      transparent: ${this.transparent},
-      alignItems: ${this.alignItems},
-      justifyContent: ${this.justifyContent},
+      horizontalAnchor: ${this.horizontalAnchor},
+      verticalAnchor: ${this.verticalAnchor},
+      justify: ${this.justify},
       heightWeight: ${this.heightWeight},
       minHeight: ${this.minHeight},
-      anchorPosition: ${this.anchorPosition},
       padding: ${this.padding},
       log: ${this.log ? 'enabled' : 'disabled'},
       debug: ${this.debug ? 'enabled' : 'disabled'}`, 'debug');
   },
   template: `
     <div class="sb-form-line" :style="lineStyle">
-      <slot></slot>  <!-- Para renderizar os componentes filhos dentro da linha -->
+      <slot></slot>
     </div>
   `
 };

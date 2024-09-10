@@ -2,9 +2,13 @@ let sbCssDefs = {};
 
 try {
   sbCssDefs = require('./sbCssDefs.js');
-  console.log('%c sbCssDefs.js carregado com sucesso.', 'color: green;');
+  if (this && this.debug) {
+    console.debug('%c sbCssDefs.js carregado com sucesso.', 'color: green;');
+  }
 } catch (error) {
-  console.warn('%c sbCssDefs.js não encontrado. Usando valores padrão.', 'color: orange;');
+  if (this && this.debug) {
+    console.debug('%c sbCssDefs.js não encontrado. Usando valores padrão.', 'color: orange;');
+  }
 }
 
 export const sbInput = {
@@ -33,36 +37,36 @@ export const sbInput = {
     },
     labelPosition: {
       type: String,
-      default: sbCssDefs.labelPosition || 'top',
+      default: 'top',
       validator: value => ['top', 'bottom', 'left', 'right'].includes(value)
     },
     widthPercent: {
-      type: Number,
-      default: sbCssDefs.widthPercent || 100
-    },
-    minWidth: {
-      type: String,
-      default: sbCssDefs.minWidth || '100px'
+      type: [Number, String],
+      default: '100'
     },
     borderRadius: {
       type: String,
-      default: sbCssDefs.borderRadius || '4px'
+      default: '4px'
     },
     margin: {
       type: String,
-      default: sbCssDefs.margin || '10px'
+      default: '10px'
+    },
+    minWidth: {
+      type: String,
+      default: '100px'
     },
     resizeHorizontal: {
       type: Boolean,
-      default: false // Desativa o redimensionamento horizontal por padrão
+      default: false
     },
     log: {
       type: Boolean,
-      default: false
+      default: false // Desabilitado por padrão
     },
     debug: {
       type: Boolean,
-      default: false
+      default: false // Desabilitado por padrão
     }
   },
   computed: {
@@ -94,7 +98,7 @@ export const sbInput = {
         border: '1px solid #ccc',
         padding: '8px',
         boxSizing: 'border-box',
-        resize: this.inputType === 'textarea' && !this.resizeHorizontal ? 'vertical' : 'both' // Controla o redimensionamento
+        resize: this.inputType === 'textarea' && !this.resizeHorizontal ? 'vertical' : 'both'
       };
     }
   },
@@ -133,7 +137,9 @@ export const sbInput = {
       inputType: ${this.inputType}, 
       placeholder: ${this.placeholder}, 
       widthPercent: ${this.widthPercent}%,
-      log: ${this.log ? 'enabled' : 'disabled'}`);
+      minWidth: ${this.minWidth},
+      log: ${this.log ? 'enabled' : 'disabled'},
+      debug: ${this.debug ? 'enabled' : 'disabled'}`);
   },
   template: `
     <div class="sb-input-container" :style="containerStyle">

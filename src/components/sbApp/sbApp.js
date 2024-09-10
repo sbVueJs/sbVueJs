@@ -2,10 +2,15 @@ let sbCssDefs = {};
 
 try {
   sbCssDefs = require('./sbCssDefs.js');
-  console.log('%c sbCssDefs.js carregado com sucesso.', 'color: green;');
+  if (this && this.debug) {
+    console.debug('%c sbCssDefs.js carregado com sucesso.', 'color: green;');
+  }
 } catch (error) {
-  console.warn('%c sbCssDefs.js não encontrado. Usando valores padrão.', 'color: orange;');
+  if (this && this.debug) {
+    console.debug('%c sbCssDefs.js não encontrado. Usando valores padrão.', 'color: orange;');
+  }
 }
+
 
 export const sbApp = {
   props: {
